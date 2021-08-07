@@ -13,7 +13,7 @@ jobs:
         id: release_version
         uses: christian-draeger/read-properties@1.0.1
         with:
-          path: './version.properties'
+          path: './app/version.properties'
           property: 'versionName'
 
 
