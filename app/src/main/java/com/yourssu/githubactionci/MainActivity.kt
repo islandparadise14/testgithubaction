@@ -10,5 +10,6 @@ class MainActivity : AppCompatActivity() {
 
 
         val a = 324
+        val b = 321
     }
 }
