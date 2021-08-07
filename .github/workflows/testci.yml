@@ -9,17 +9,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Bump version and push tag
-        id: tag_version
-        uses: mathieudutour/github-tag-action@v5.5 # 가져다 쓸 auto tagging 프로그램
+      - name: Read versionName property
+        id: release_version
+        uses: christian-draeger/read-properties@1.0.1
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }} # secrets.GITHUB_TOKEN 는 자동생성됨
+          path: './version.properties'
+          property: 'versionName'
+
 
       - name: Create a GitHub release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.tag_version.outputs.new_tag }}
-          release_name: Release ${{ steps.tag_version.outputs.new_tag }}
-          body: ${{ steps.tag_version.outputs.changelog }}
+          tag_name: ${{ steps.release_version.outputs.value }}
+          release_name: Release ${{ steps.release_version.outputs.value }}
